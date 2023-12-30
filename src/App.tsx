@@ -11,12 +11,14 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/throttle" element={<Throttle />} />
-        <Route path="/debounce" element={<Debounce />} />
-        <Route path="/virtualized-list" element={<VirtualizedList />} />
-      </Routes>
+      <main className="py-2 flex flex-col items-center">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/throttle" element={<Throttle />} />
+          <Route path="/debounce" element={<Debounce />} />
+          <Route path="/virtualized-list" element={<VirtualizedList />} />
+        </Routes>
+      </main>
     </BrowserRouter>
   );
 }

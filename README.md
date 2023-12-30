@@ -7,6 +7,14 @@
 
 ## Routes
 
+### Home
+
+1. README.md 파일을 동적으로 불러와서 사용할 수 있을까?
+   - [ ] Vite에서 express사용하는 방법?
+     - 마크다운 파일을 불러오기 위해선 Server Side에서 readFile로 접근해야한다. 따라서 백엔드 프레임 워크를 사용 할 필요성이 있다.
+   - [x] React-markdown 라이브러리로 렌더링
+   - [ ] React-markdown 스타일 적용
+
 ### Throttle
 
 ### Debounce
