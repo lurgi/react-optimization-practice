@@ -17,7 +17,7 @@ const Header = () => {
         <ul className="flex gap-x-3">
           {routes.map(({ path, text }) => (
             <li
-              id={text}
+              key={text}
               className={twMerge(
                 "px-4 py-2 rounded-lg hover:bg-neutral-100 text-neutral-400 hover:text-neutral-950 transition",
                 `${pathname}` === path ? "text-neutral-950" : ""
