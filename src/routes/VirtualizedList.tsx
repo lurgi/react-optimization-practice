@@ -22,7 +22,7 @@ const getPokemons = () => {
 };
 
 const VirtualizedList = () => {
-  const res = useQuery<PokemonResponse>({
+  const { data, isLoading } = useQuery<PokemonResponse>({
     queryKey: ["pokemons"],
     queryFn: getPokemons,
   });
@@ -68,38 +68,44 @@ const VirtualizedList = () => {
     };
   }, [itemCol]);
 
-  console.log(res.data);
   return (
-    <div ref={ref} className="h-[80vh] overflow-y-scroll">
-      <h1>Pokemon List</h1>
-      <div
-        style={{
-          height: Math.ceil(((res.data?.count || 0) / itemCol) * itemHeight),
-        }}>
+    <div
+      ref={ref}
+      className="h-[80vh] w-[80vw] overflow-y-auto overflow-x-hidden relative">
+      <h1 className="text-center">Pokemon List</h1>
+      {isLoading || !data ? (
+        <div>Loading...</div>
+      ) : (
         <div
-          className={twMerge(
-            "grid gap-3 ",
-            itemCol === 2 ? "grid-cols-2" : `grid-cols-3`
-          )}
-          style={{ marginTop: (startIndex / itemCol) * itemHeight }}>
-          {res.data?.results
-            .slice(startIndex, startIndex + itemRenderCnt)
-            .map(({ name, url }, index) => (
-              <div
-                key={index}
-                className="w-40 h-48 border rounded-md flex flex-col items-center">
-                <img
-                  className="bg-red-50 aspect-square rounded-md w-36 my-1"
-                  src={
-                    import.meta.env.VITE_POKE_IMG_BASE_URL +
-                    url.split("/")[6] +
-                    ".png"
-                  }></img>
-                <span>{name}</span>
-              </div>
-            ))}
+          style={{
+            height: Math.ceil((data?.count / itemCol) * itemHeight),
+          }}
+          className="relative flex flex-col items-center">
+          <div
+            className={twMerge(
+              "grid gap-3 absolute w-[500px]",
+              itemCol === 2 ? "grid-cols-2" : `grid-cols-3`
+            )}
+            style={{ top: (startIndex / itemCol) * itemHeight }}>
+            {data?.results
+              .slice(startIndex, startIndex + itemRenderCnt)
+              .map(({ name, url }, index) => (
+                <div
+                  key={index}
+                  className="w-40 h-48 border rounded-md flex flex-col items-center">
+                  <img
+                    className="bg-red-50 aspect-square rounded-md w-36 my-1"
+                    src={
+                      import.meta.env.VITE_POKE_IMG_BASE_URL +
+                      url.split("/")[6] +
+                      ".png"
+                    }></img>
+                  <span>{name}</span>
+                </div>
+              ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
