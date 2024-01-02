@@ -6,19 +6,22 @@ import Debounce from "./routes/Debounce";
 import VirtualizedList from "./routes/VirtualizedList";
 
 import Header from "./components/Header";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <main className="py-2 flex flex-col items-center">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/throttle" element={<Throttle />} />
-          <Route path="/debounce" element={<Debounce />} />
-          <Route path="/virtualized-list" element={<VirtualizedList />} />
-        </Routes>
-      </main>
+      <QueryClientProvider client={new QueryClient()}>
+        <Header />
+        <main className="py-2 flex flex-col items-center">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/throttle" element={<Throttle />} />
+            <Route path="/debounce" element={<Debounce />} />
+            <Route path="/virtualized-list" element={<VirtualizedList />} />
+          </Routes>
+        </main>
+      </QueryClientProvider>
     </BrowserRouter>
   );
 }
