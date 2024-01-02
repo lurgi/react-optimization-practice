@@ -73,3 +73,13 @@ export interface Pokemon {
   types: Type[];
   weight: number;
 }
+
+type PokemonsResponseResult = {
+  name: string;
+  url: string;
+};
+
+export interface PokemonsResponse {
+  count: number;
+  results: PokemonsResponseResult[];
+}
