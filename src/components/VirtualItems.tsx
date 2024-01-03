@@ -15,18 +15,14 @@ const VirtualItems: React.FC<IProps> = ({ data, containerRef }) => {
 
   const DIVIDE_STAND = 650;
   const ITEM_HEIGHT = 204;
+  const GRID_COLS = (width: number) => (width < DIVIDE_STAND ? 2 : 3);
 
   const [itemGridCol, setItemGridCol] = useState<2 | 3>(
-    window.innerWidth < DIVIDE_STAND ? 2 : 3
+    GRID_COLS(window.innerWidth)
   );
 
   window.onresize = () => {
-    if (window.innerWidth < DIVIDE_STAND) {
-      setItemGridCol(2);
-    }
-    if (window.innerWidth >= DIVIDE_STAND) {
-      setItemGridCol(3);
-    }
+    setItemGridCol(GRID_COLS(window.innerWidth));
   };
 
   const responsiveWidth = {
@@ -35,27 +31,26 @@ const VirtualItems: React.FC<IProps> = ({ data, containerRef }) => {
   };
 
   useEffect(() => {
+    const instance = containerRef.current;
+
     const handleScroll = () => {
-      if (containerRef.current) {
+      if (instance) {
         const newStartIndex =
-          Math.floor(containerRef.current.scrollTop / ITEM_HEIGHT) *
-          itemGridCol;
+          Math.floor(instance.scrollTop / ITEM_HEIGHT) * itemGridCol;
         const newItemCnt =
-          (Math.ceil(containerRef.current.offsetHeight / ITEM_HEIGHT) + 3) *
-          itemGridCol;
+          (Math.ceil(instance.offsetHeight / ITEM_HEIGHT) + 3) * itemGridCol;
 
         setStartIndex(newStartIndex);
         setItemRenderCnt(newItemCnt);
       }
     };
 
-    const istance = containerRef.current;
-    if (istance) {
-      istance.addEventListener("scroll", handleScroll);
+    if (instance) {
+      instance.addEventListener("scroll", handleScroll);
     }
     return () => {
-      if (istance) {
-        istance.removeEventListener("scroll", handleScroll);
+      if (instance) {
+        instance.removeEventListener("scroll", handleScroll);
       }
     };
   }, [itemGridCol, containerRef]);
