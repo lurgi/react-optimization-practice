@@ -49,13 +49,13 @@ const VirtualItems: React.FC<IProps> = ({ data, containerRef }) => {
       }
     };
 
-    if (containerRef.current) {
-      containerRef.current.addEventListener("scroll", handleScroll);
+    const istance = containerRef.current;
+    if (istance) {
+      istance.addEventListener("scroll", handleScroll);
     }
-
     return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener("scroll", handleScroll);
+      if (istance) {
+        istance.removeEventListener("scroll", handleScroll);
       }
     };
   }, [itemGridCol, containerRef]);
