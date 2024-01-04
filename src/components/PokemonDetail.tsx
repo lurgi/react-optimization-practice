@@ -2,7 +2,12 @@ import { getPokemonNameById } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { PokemonNameResponse, PokemonsResponseResult } from "types/poketmon";
 
-const PokemonDetail = ({ data }: { data: PokemonsResponseResult }) => {
+interface IProps {
+  data: PokemonsResponseResult;
+  filter?: string;
+}
+
+const PokemonDetail = ({ data, filter }: IProps) => {
   const { url } = data;
   const id = url.split("/")[6];
   const { data: nameData } = useQuery<PokemonNameResponse>({
@@ -13,6 +18,10 @@ const PokemonDetail = ({ data }: { data: PokemonsResponseResult }) => {
   const koreanName = nameData?.names.filter(
     ({ language }) => language.name === "ko"
   )[0];
+
+  if (filter && !koreanName?.name.includes(filter)) {
+    return null;
+  }
 
   return (
     <div className="w-40 h-48 border rounded-md flex flex-col items-center">

@@ -8,9 +8,10 @@ import PokemonDetail from "./PokemonDetail";
 interface IProps {
   data: PokemonsResponse;
   containerRef: React.RefObject<HTMLDivElement>;
+  filter?: string;
 }
 
-const VirtualItems: React.FC<IProps> = ({ data, containerRef }) => {
+const VirtualItems: React.FC<IProps> = ({ data, containerRef, filter }) => {
   const [startIndex, setStartIndex] = useState(0);
   const [itemRenderCnt, setItemRenderCnt] = useState(18);
 
@@ -69,7 +70,7 @@ const VirtualItems: React.FC<IProps> = ({ data, containerRef }) => {
           .slice(startIndex, startIndex + itemRenderCnt)
           .map((data, index) => (
             <div key={index}>
-              <PokemonDetail data={data} />
+              <PokemonDetail filter={filter} data={data} />
             </div>
           ))}
       </div>
