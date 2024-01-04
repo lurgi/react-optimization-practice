@@ -17,6 +17,23 @@
 
 ### Throttle
 
+1. React-Query로 데이터를 불러온 다음, Mutate하여 데이터를 filter한다.
+   - [ ] 데이터 페칭
+   - [ ] input 핸들링
+     - Concurrency
+   - [ ] 데이터 필터링
+     - React-Query Mutation
+
 ### Debounce
 
 ### Virtualized List
+
+1. useRef를 useEffect 내부에서 사용하기 위해선, useEffect 내부에 참조를 선언해야만 한다.
+
+- ```
+  useEffect(() => {
+    const instance = containerRef.current;
+    ...
+  ```
+
+2. relative 값을 주의하여야 한다.
