@@ -28,7 +28,7 @@ const PokemonDetail = ({ data, filter }: IProps) => {
       <img
         className="bg-red-50 aspect-square rounded-md w-36 my-1"
         src={import.meta.env.VITE_POKE_IMG_BASE_URL + id + ".png"}></img>
-      <span>{koreanName?.name}</span>
+      <span>{koreanName?.name || data.name}</span>
     </div>
   );
 };
