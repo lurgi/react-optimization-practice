@@ -18,8 +18,8 @@
 ### Throttle
 
 1. React-Query로 데이터를 불러온 다음, Mutate하여 데이터를 filter한다.
-   - [ ] 데이터 페칭
-   - [ ] input 핸들링
+   - [x] 데이터 페칭
+   - [x] input 핸들링
      - Concurrency
    - [ ] 데이터 필터링
      - React-Query Mutation

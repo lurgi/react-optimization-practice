@@ -2,7 +2,7 @@ import { getPokemons } from "@/api";
 import VirtualItems from "@/components/VirtualItems";
 import { Input } from "@/components/ui/input";
 import { useQuery } from "@tanstack/react-query";
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 import { PokemonsResponse } from "types/poketmon";
 
 const Throttle = () => {
@@ -12,12 +12,19 @@ const Throttle = () => {
   });
 
   const [keyword, setKeyword] = useState("");
+  const [defferedKeyword, setDefferedKeyword] = useState("");
+  const [isPending, startTransition] = useTransition();
+
   const handleChange = ({
     target: { value },
   }: {
     target: { value: string };
   }) => {
     setKeyword(value);
+
+    startTransition(() => {
+      setDefferedKeyword(value);
+    });
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,13 +42,13 @@ const Throttle = () => {
         ref={containerRef}
         className="h-[75vh] overflow-y-auto overflow-x-hidden relative">
         <h1 className="text-center">Pokemon List</h1>
-        {isLoading || !data ? (
+        {isLoading || isPending || !data ? (
           <div>Loading...</div>
         ) : (
           <VirtualItems
             data={data}
             containerRef={containerRef}
-            filter={keyword}
+            filter={defferedKeyword}
           />
         )}
       </div>
