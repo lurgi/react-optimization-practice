@@ -25,7 +25,12 @@ const Throttle = () => {
   return (
     <div className="h-[80vh] w-[80vw] max-w-[650px]">
       <h1>Search</h1>
-      <Input onChange={handleChange} value={keyword} className="my-2" />
+      <Input
+        onChange={handleChange}
+        value={keyword}
+        placeholder="검색 키워드를 입력하세요"
+        className="my-2"
+      />
       <div
         ref={containerRef}
         className="h-[75vh] overflow-y-auto overflow-x-hidden relative">

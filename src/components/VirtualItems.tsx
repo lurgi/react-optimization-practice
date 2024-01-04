@@ -47,32 +47,34 @@ const VirtualItems: React.FC<IProps> = ({ data, containerRef, filter }) => {
       }
     };
 
-    if (instance) {
+    if (!filter && instance) {
       instance.addEventListener("scroll", handleScroll);
     }
     return () => {
-      if (instance) {
+      if (!filter && instance) {
         instance.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [itemGridCol, containerRef]);
+  }, [itemGridCol, containerRef, filter]);
 
   return (
     <div
       style={{
-        height: Math.ceil((data?.count / itemGridCol) * ITEM_HEIGHT),
+        height: !filter
+          ? Math.ceil((data?.count / itemGridCol) * ITEM_HEIGHT)
+          : "auto",
       }}
       className="relative flex flex-col items-center">
       <div
         className={twMerge("grid gap-3 absolute", responsiveWidth[itemGridCol])}
         style={{ top: (startIndex / itemGridCol) * ITEM_HEIGHT }}>
-        {data?.results
-          .slice(startIndex, startIndex + itemRenderCnt)
-          .map((data, index) => (
-            <div key={index}>
-              <PokemonDetail filter={filter} data={data} />
-            </div>
-          ))}
+        {filter
+          ? data?.results.map((data, index) => (
+              <PokemonDetail key={index} filter={filter} data={data} />
+            ))
+          : data?.results
+              .slice(startIndex, startIndex + itemRenderCnt)
+              .map((data, index) => <PokemonDetail key={index} data={data} />)}
       </div>
     </div>
   );
