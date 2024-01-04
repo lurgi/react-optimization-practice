@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { PokemonsResponse } from "../../types/poketmon";
+import PokemonDetail from "./PokemonDetail";
 
 interface IProps {
   data: PokemonsResponse;
@@ -66,18 +67,9 @@ const VirtualItems: React.FC<IProps> = ({ data, containerRef }) => {
         style={{ top: (startIndex / itemGridCol) * ITEM_HEIGHT }}>
         {data?.results
           .slice(startIndex, startIndex + itemRenderCnt)
-          .map(({ name, url }, index) => (
-            <div
-              key={index}
-              className="w-40 h-48 border rounded-md flex flex-col items-center">
-              <img
-                className="bg-red-50 aspect-square rounded-md w-36 my-1"
-                src={
-                  import.meta.env.VITE_POKE_IMG_BASE_URL +
-                  url.split("/")[6] +
-                  ".png"
-                }></img>
-              <span>{name}</span>
+          .map((data, index) => (
+            <div key={index}>
+              <PokemonDetail data={data} />
             </div>
           ))}
       </div>

@@ -6,8 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
 import { PokemonsResponse } from "../../types/poketmon";
 
-// https://pokeapi.co/api/v2/pokemon-species/1/ 여기서 korean네임 구할 수 있음.
-
 const VirtualizedList = () => {
   const { data, isLoading } = useQuery<PokemonsResponse>({
     queryKey: ["pokemons"],
