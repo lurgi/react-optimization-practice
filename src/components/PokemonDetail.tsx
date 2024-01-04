@@ -10,7 +10,11 @@ interface IProps {
 const PokemonDetail = ({ data, filter }: IProps) => {
   const { url } = data;
   const id = url.split("/")[6];
-  const { data: nameData } = useQuery<PokemonNameResponse>({
+  const {
+    data: nameData,
+    isError,
+    isPending,
+  } = useQuery<PokemonNameResponse>({
     queryKey: ["pokemonDetail", id],
     queryFn: () => getPokemonNameById(id),
   });
@@ -19,7 +23,7 @@ const PokemonDetail = ({ data, filter }: IProps) => {
     ({ language }) => language.name === "ko"
   )[0];
 
-  if (filter && !koreanName?.name.includes(filter)) {
+  if (isError || (filter && !koreanName?.name.includes(filter)) || isPending) {
     return null;
   }
 
@@ -28,7 +32,7 @@ const PokemonDetail = ({ data, filter }: IProps) => {
       <img
         className="bg-red-50 aspect-square rounded-md w-36 my-1"
         src={import.meta.env.VITE_POKE_IMG_BASE_URL + id + ".png"}></img>
-      <span>{koreanName?.name || data.name}</span>
+      <span>{koreanName?.name || data.name}</span>{" "}
     </div>
   );
 };
