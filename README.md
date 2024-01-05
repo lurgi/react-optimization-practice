@@ -15,16 +15,14 @@
    - [x] React-markdown 라이브러리로 렌더링
    - [ ] React-markdown 스타일 적용
 
-### Throttle
+### Throttle, Debounce
 
-1. React-Query로 데이터를 불러온 다음, Mutate하여 데이터를 filter한다.
-   - [x] 데이터 페칭
-   - [x] input 핸들링
-     - Concurrency
-   - [ ] 데이터 필터링
-     - React-Query Mutation
-
-### Debounce
+- [x] 데이터 페칭
+- [x] input 핸들링
+  - Concurrency
+- Hook을 만들어 사용.
+- useRef를 사용하여 Throttle 구현.
+- [Hook src ⬅️](https://github.com/lurgi/react-optimization-practice/tree/master/src/hooks)
 
 ### Virtualized List
 
